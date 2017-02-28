@@ -312,4 +312,3 @@ Here's a [link to my video result](./project4_AnnotatedVideo.mp4)
 By looking at the final video the lane markings shows problem on area where there are shadows. Fine tuning the thresholding and gradient parameters or add additional thresholding/gradient techniques other than SobelX gradient and S channel (HLS space) might improved the lane detection further.
 
 
-
