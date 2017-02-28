@@ -43,12 +43,16 @@ mtx and dist will be used later on in cv2.undistort function. See below picture 
 image = mpimg.imread("test_images/test5.jpg")
 undist = cv2.undistort(image, mtx, dist, None, mtx) 
 ![alt text][image2]
+---
 ####2. Applying color transforms and gradients to create a thresholded binary image.
 I used combination of SobelX gradient and Saturation(S) channel (HLS space) thresholding to create thresholded binary image (P4AdvancedLaneLines.py line 316). For S thresholding,  I set ( s_thresh_min, s_thresh_max) to (170,255).
+
 The resulting s_binary image is:
 ![alt text][image3]
+---
 For SobelX gradient thresholding, I set (thresh_min,thresh_max) to (20,100). The code for sobelx gradient is inside abs_sobel_thresh function. Executing this function with kernel size of 9 and the mentioned (thresh_min,thresh_max) settings above will produced a gradx binary image as shown:
 ![alt text][image4]
+---
 Combining these two binary images (gradx and s_binary) will give the final binary image:
 
 combined = np.zeros_like(s_binary)
@@ -56,7 +60,7 @@ combined[(s_binary == 1) | (gradx == 1)] = 1
     
 ![alt text][image5]
 
-
+---
 ####3. Performing a perspective transform of a transformed image.
 
 By trying several combinations of four source and destination points  and checking which combination will produce a straight and vertical lane lines for the perspective transformation (P4AdvancedLaneLines.py line 338) of the  straight_lines1.jpg and straight_lines2.jpg, source and destinations points obtained were:
@@ -82,19 +86,19 @@ I verified that the perspective transform is working properly by obtaining a war
 ####4. Identifying lane-line pixels and fit their positions with a polynomial
 Applying perpective transform on the thresholded binary test image yielded the following:
 ![alt text][image8]
-
+---
 
 ##Line Finding Method: Peaks in a Histogram
 To find the left and right lane-line pixels, we need to locate first the best x-position of the base lines. This is done by getting the histogram 
 along all the columns in the lower half of the image shown below:
 ![alt text][image9]
-
+---
 histogram = np.sum(img[img.shape[0]/2:,:], axis=0)
 plt.plot(histogram)
 
 Resulting histogram is:
 ![alt text][image10]
-
+---
 Finding the peak of the left and right halves of the histogram will give us the starting base point for the left and right lines.
 
 midpoint = np.int(histogram.shape[0]/2)
