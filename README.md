@@ -306,7 +306,7 @@ calcRadiusCurvature and calc_offset functions are being called inside the pipeli
 ---
 
 ###Pipeline (video)
-Here's a [link to video after running through the pipeline](./project4_AnnotatedVideo.mp4)
+Here's a [link to video after running through the pipeline](https://youtu.be/eN5rz6ULdm8)
 
 ---
 
