@@ -21,7 +21,7 @@ The goals / steps of this project are the following:
 [image6]: ./output_images/straight_lines1_undistorts_perspectiveTransform.png "Perspective Transform1"
 [image7]: ./output_images/straight_lines2_undistorts_perspectiveTransform.png "Perspective Transform2"
 [image8]: ./output_images/SobelX-S-RColorThreshold_PerspectiveTransform.png "Perspective Transform3"
-[image9]: ./output_images/binary_warped_birdseyeview.png "BirdsEyeView"
+[image9]: ./output_images/binary_warped_birdseyeview1.png "BirdsEyeView"
 [image10]: ./output_images/histogram.png "BirdsEyeView_histogram"
 [image11]: ./output_images/originalImage_detectedlane_radiuscurv_offset.png "lane detected_radius curvature_car position"
 
@@ -339,6 +339,7 @@ By looking at the final video the lane markings shows problem on area where ther
 Finding the common pixels between R-color and S channel masked out the pixels due to shadow and sudden road color changes and combining the resulting binary with SobelX gives a good result of finding the correct lane lines as shown in these videoss:
 
 [link to video using S(HLS) and SobelX](https://youtu.be/eN5rz6ULdm8)
+
 [link to video using S(HLS) & Rcolor and SobelX](https://youtu.be/GCZBbjrNvIc)
 
 
