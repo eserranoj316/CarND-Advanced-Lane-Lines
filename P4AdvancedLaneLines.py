@@ -35,6 +35,7 @@ def calibrate_camera(globpattern,nx,ny,image_shape):
     return (ret, mtx, dist, rvecs, tvecs)
 
 
+
 def abs_sobel_thresh(img, orient='x', sobel_kernel=3, thresh=(0, 255)):
     # Calculate directional gradient
     # Apply threshold
