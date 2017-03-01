@@ -104,14 +104,19 @@ def pipelines(image):
     hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
     s_channel = hls[:,:,2]
     # Threshold color channel
-    s_thresh_min = 170
+    s_thresh_min = 100
     s_thresh_max = 255
     s_binary = np.zeros_like(s_channel)
     s_binary[(s_channel >= s_thresh_min) & (s_channel <= s_thresh_max)] = 1
     gradx = abs_sobel_thresh(image, orient='x', sobel_kernel=ksize, thresh=(20, 100))
+    #adding R threshold
+    R = image[:,:,0]
+    thresh = (200, 255)
+    r_binary = np.zeros_like(R)
+    r_binary[(R > thresh[0]) & (R <= thresh[1])] = 1
     #combining thresholds 
     combined = np.zeros_like(s_binary)
-    combined[(s_binary == 1) | (gradx == 1)] = 1
+    combined[((s_binary == 1) & (r_binary == 1))  | (gradx == 1)] = 1
     binary_warped = cv2.warpPerspective(combined, M, (image.shape[1], image.shape[0]), flags=cv2.INTER_LINEAR)    
     nonzero = binary_warped.nonzero()
     nonzeroy = np.array(nonzero[0])
@@ -316,12 +321,17 @@ if __name__ == "__main__":
     hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
     s_channel = hls[:,:,2]
     # Threshold color channel
-    s_thresh_min = 170
+    s_thresh_min = 100
     s_thresh_max = 255
     s_binary = np.zeros_like(s_channel)
     s_binary[(s_channel >= s_thresh_min) & (s_channel <= s_thresh_max)] = 1
     showPlotBeforeAfter(undist,s_binary,"undistorted test image","S Color Thresholding", cmap='gray')
-    
+    #adding R threshold
+    R = image[:,:,0]
+    thresh = (200, 255)
+    r_binary = np.zeros_like(R)
+    r_binary[(R > thresh[0]) & (R <= thresh[1])] = 1
+    showPlotBeforeAfter(undist,r_binary,"undistorted test image","R Color Thresholding", cmap='gray', display = displayIt)
     
     gradx = abs_sobel_thresh(image, orient='x', sobel_kernel=ksize, thresh=(20, 100))
     showPlotBeforeAfter(undist,gradx,"undistorted test image","SobelX Gradient", cmap='gray')
@@ -329,7 +339,7 @@ if __name__ == "__main__":
        
     #combining thresholds 
     combined = np.zeros_like(s_binary)
-    combined[(s_binary == 1) | (gradx == 1)] = 1
+    combined[((s_binary == 1) & (r_binary == 1))  | (gradx == 1)] = 1
     showPlotBeforeAfter(undist,combined,"undistorted test image","Combination of S and SobelX Gradient", cmap='gray')
 
     #by trial and error. Searching for good matching source and destination points
