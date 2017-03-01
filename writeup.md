@@ -336,7 +336,7 @@ Here's a [link to video after running through the pipeline](https://youtu.be/GCZ
 ###Discussion
 By looking at the final video the lane markings shows problem on area where there are shadows. Fine tuning the thresholding and gradient parameters or add additional thresholding/gradient techniques other than SobelX gradient and S channel (HLS space) might improved the lane detection further.
 
-Finding the common pixels between R-color and S channel masked out the pixels due to shadow and sudden road color changes and combining the resulting binary with SobelX gives a good result of finding the correct lane lines as shown in these videoss:
+Finding the common pixels between R-color and S channel masked out the pixels due to shadow and sudden road color changes and combining the resulting binary with SobelX gives a good result of finding the correct lane lines as shown in these videos:
 
 [link to video using S(HLS) and SobelX](https://youtu.be/eN5rz6ULdm8)
 
