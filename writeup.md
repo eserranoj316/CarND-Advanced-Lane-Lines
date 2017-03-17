@@ -1,4 +1,4 @@
-**Advanced Lane Finding Project**
+** Advanced Lane Finding Project**
 
 The goals / steps of this project are the following:
 
@@ -34,18 +34,18 @@ The goals / steps of this project are the following:
 [video1]: ./project4_AnnotatedVideo.mp4 "Video"
 
 ---
-###Writeup / README
+### Writeup / README
 
-###Camera Calibration
+### Camera Calibration
 
 
 The code for calibrating camera is in calibrate_camera function (P4AdvancedLaneLines.py) which requires following input arguments: globpattern,nx,ny,image_shape. The function reads in all calibration images one by one, convert to gray scale and using  cv2.findChessboardCorners to search for inner corners (intersection of two blaclk squares) and append them in imgpoints list. A corresponding object point is then appended to objpoints list. imgpoints and objpoints are then used to calibrate the camera via cv2.calibrateCamera. Function returns cameraMatrix(mtx),  distortion coefficients(dist), rotation vectors(rvecs), and translation vectors(tvecs).
 mtx and dist will be used later on in cv2.undistort function. See below picture showing original and undistorted image.
 ![alt text][image1]
 
-###Pipeline (single images)
+### Pipeline (single images)
 
-####1. Applying cv2.undistort to test image using the camera matrix and distortion coefficients obtained from cv2.calibrateCamera
+#### 1. Applying cv2.undistort to test image using the camera matrix and distortion coefficients obtained from cv2.calibrateCamera
 
 image = mpimg.imread("test_images/test5.jpg")
 undist = cv2.undistort(image, mtx, dist, None, mtx) 
@@ -75,7 +75,7 @@ showPlotBeforeAfter(undist,combined,"undistorted test image","Combination of (S 
 ```
 ![alt text][image5]
 ---
-####3. Performing a perspective transform of a transformed image.
+#### 3. Performing a perspective transform of a transformed image.
 
 By trying several combinations of four source and destination points  and checking which combination will produce a straight and vertical lane lines for the perspective transformation (P4AdvancedLaneLines.py line 338) of the  straight_lines1.jpg and straight_lines2.jpg, source and destinations points obtained were:
 
@@ -97,7 +97,7 @@ I verified that the perspective transform is working properly by obtaining a war
 ![alt text][image7]
 
 
-####4. Identifying lane-line pixels and fit their positions with a polynomial
+#### 4. Identifying lane-line pixels and fit their positions with a polynomial
 Applying perpective transform on the thresholded binary test image yielded the following:
 ![alt text][image8]
 
@@ -280,7 +280,7 @@ def pipelines(image):
 
 ```
 
-####5. Calculating the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Calculating the radius of curvature of the lane and the position of the vehicle with respect to center.
 The function calcRadiusCurvature calculates the radius of curvature using the formula for Rcurve evaluating over y value corresponding to the bottom of the image:
 ```python
 
@@ -321,19 +321,19 @@ def calc_offset(org_image, leftx, rightx):
     return result
 ```
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 calcRadiusCurvature and calc_offset functions are being called inside the pipeline function. Here is an example of the pipeline result applied on a test image:
 
 ![alt text][image11]
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 Here's a [link to video after running through the pipeline](https://youtu.be/GCZBbjrNvIc)
 
 ---
 
-###Discussion
+### Discussion
 By looking at the final video the lane markings shows problem on area where there are shadows. Fine tuning the thresholding and gradient parameters or add additional thresholding/gradient techniques other than SobelX gradient and S channel (HLS space) might improved the lane detection further.
 
 Finding the common pixels between R-color and S channel masked out the pixels due to shadow and sudden road color changes and combining the resulting binary with SobelX gives a good result of finding the correct lane lines as shown in these videos:
